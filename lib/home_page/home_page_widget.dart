@@ -1,3 +1,5 @@
+import 'package:arosaje/connexion_page/connexion_page_widget.dart';
+import 'package:arosaje/menu/DrawerMenu_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:arosaje/home_page/home_page_model.dart';
 
@@ -18,6 +20,7 @@ class HomePageWidget extends StatelessWidget {
         backgroundColor: Colors.transparent,
         iconTheme: const IconThemeData(color: Colors.black),
       ),
+       drawer: DrawerMenuWidget(),
       body: Stack(
         children: [
           Column(
@@ -64,8 +67,13 @@ class HomePageWidget extends StatelessWidget {
                   SizedBox(width: 10.0),
                   ElevatedButton(
                     onPressed: () {
-                      // Action à effectuer lorsque le bouton blanc est pressé
-                    },
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ConnexionPageWidget(),
+                      ),
+                    );
+                  },
                     style: ElevatedButton.styleFrom(
                       primary: Colors.white,
                       onPrimary: Colors.black,

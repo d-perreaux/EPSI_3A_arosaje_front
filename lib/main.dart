@@ -1,4 +1,8 @@
-import 'package:arosaje/annonce_page/annonce_page_model.dart';
+import 'package:arosaje/api_service.dart';
+import 'package:arosaje/connexion_page/connexion_page_widget.dart';
+import 'package:arosaje/creergarde_page/creergarde_widget.dart';
+import 'package:arosaje/garde_page/garde_page_widget.dart';
+import 'package:arosaje/register_page/register_page_widget.dart';
 import 'package:flutter/material.dart';
 import 'home_page/home_page_widget.dart';
 import 'annonce_page/annonce_page_widget.dart';
@@ -14,14 +18,28 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Arosaje',
-      theme: ThemeData(
-        // Définir le thème de votre application ici
-        // ...
+      initialRoute: '/connexion',
+      home: FutureBuilder(
+        future: ApiService.fetchData(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return HomePageWidget();
+          } else {
+            // Peut-être afficher un indicateur de chargement ici
+            return Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+        },
       ),
-      initialRoute: '/',  // Définir la route initiale
       routes: {
-        '/': (context) => const HomePageWidget(),  // Page d'accueil
-        '/annonce': (context) => const AnnoncePageWidget(),  // Page d'annonce
+        '/annonce': (context) => const AnnoncePageWidget(),
+        '/connexion': (context) => const ConnexionPageWidget(),
+        '/register': (context) => RegisterPageWidget(),
+        '/garde': (context) => GardePageWidget(),
+        '/creergarde': (context) => CreerGardeWidget(),
       },
     );
   }
